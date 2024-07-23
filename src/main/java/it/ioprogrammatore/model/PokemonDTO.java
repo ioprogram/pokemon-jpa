@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "Pokemon")
-public class Pokemon {
+public class PokemonDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pokemon_id")
@@ -18,10 +18,10 @@ public class Pokemon {
 
     @ManyToOne
     @JoinColumn(name = "type_id", nullable = false)
-    private Type type;
+    private TypeDTO type;
 
     @ManyToOne
     @JoinColumn(name = "trainer_id")
-    private Trainer trainer;
+    private TrainerDTO trainer;
 
 }

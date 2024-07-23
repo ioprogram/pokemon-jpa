@@ -14,11 +14,11 @@ public class PokemonAbility {
     @Id
     @ManyToOne
     @JoinColumn(name = "pokemon_id")
-    private Pokemon pokemon;
+    private PokemonDTO pokemon;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "ability_id")
-    private Ability ability;
+    private AbilityDTO ability;
 
 }

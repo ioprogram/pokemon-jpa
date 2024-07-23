@@ -13,12 +13,12 @@ public class PokemonStat {
     @Id
     @ManyToOne
     @JoinColumn(name = "pokemon_id")
-    private Pokemon pokemon;
+    private PokemonDTO pokemon;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "stat_id")
-    private Stat stat;
+    private StatDTO stat;
 
     private int value;
 

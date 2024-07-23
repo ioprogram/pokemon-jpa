@@ -2,17 +2,17 @@ package it.ioprogrammatore.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.Setter;;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "Types")
-public class Type {
+@Table(name = "Abilities")
+public class AbilityDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "type_id")
-    private int typeId;
+    @Column(name = "ability_id")
+    private int abilityId;
 
     private String description;
 
