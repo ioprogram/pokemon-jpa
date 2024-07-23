@@ -1,60 +1,46 @@
 package it.ioprogrammatore;
 
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import it.ioprogrammatore.model.PokemonDTO;
+import it.ioprogrammatore.model.TrainerDTO;
+import it.ioprogrammatore.model.TypeDTO;
+import it.ioprogrammatore.service.PokemonDAO;
+import it.ioprogrammatore.service.TrainerDAO;
+import it.ioprogrammatore.service.TypeDAO;
 
 public class Main {
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("pokemon-jpa");
 
     public static void main(String[] args) {
+        // DAO
+        PokemonDAO pokemonDAO = new PokemonDAO();
+        TrainerDAO trainerDAO = new TrainerDAO();
+        TypeDAO typeDAO = new TypeDAO();
+
+//        // Step 1 - create a type
+        TypeDTO type = new TypeDTO();
+        type.setDescription("Fire");
+        typeDAO.createType(type);
+
+//        // Step 2 - create Trainer
+        TrainerDTO trainer = new TrainerDTO();
+        trainer.setName("Michele");
+        trainerDAO.createTrainer(trainer);
+
+        // Step 3 - create Pokemon
+        PokemonDTO pokemon = new PokemonDTO();
+        pokemon.setName("Charmander");
+        pokemon.setType(type);
+        pokemon.setTrainer(trainer);
+        pokemonDAO.createPokemon(pokemon);
+
+        // Step 4 - create Pokemon with existing type and trainer
+        TypeDTO typeById = typeDAO.getTypeById(1);
+        TrainerDTO trainerById = trainerDAO.getTrainerById(1);
+
+        PokemonDTO pokemon2 = new PokemonDTO();
+        pokemon2.setName("Magmar");
+        pokemon2.setType(typeById);
+        pokemon2.setTrainer(trainerById);
+        pokemonDAO.createPokemon(pokemon2);
 
     }
-
-//    public static void main(String[] args) {
-//        EntityManager em = emf.createEntityManager();
-//
-//        // Create a new Type
-//        em.getTransaction().begin();
-//        Type fireType = new Type();
-//        fireType.setDescription("Fire");
-//        em.persist(fireType);
-//        em.getTransaction().commit();
-//
-//        // Create a new Trainer
-//        em.getTransaction().begin();
-//        Trainer ash = new Trainer();
-//        ash.setName("Ash Ketchum");
-//        em.persist(ash);
-//        em.getTransaction().commit();
-//
-//        // Create a new Pokemon
-//        em.getTransaction().begin();
-//        Pokemon charmander = new Pokemon();
-//        charmander.setName("Charmander");
-//        charmander.setType(fireType);  // Set the type
-//        charmander.setTrainer(ash);    // Set the trainer
-//        em.persist(charmander);
-//        em.getTransaction().commit();
-//
-//        // Read all Pokémon
-//        TypedQuery<Pokemon> query = em.createQuery("SELECT p FROM Pokemon p", Pokemon.class);
-//        List<Pokemon> pokemons = query.getResultList();
-//        for (Pokemon pokemon : pokemons) {
-//            System.out.println("Pokemon: " + pokemon.getName() + ", Type: " + pokemon.getType().getDescription() + ", Trainer: " + pokemon.getTrainer().getName());
-//        }
-//
-//        // Update a Pokemon
-//        em.getTransaction().begin();
-//        charmander.setName("Charmeleon");
-//        em.merge(charmander);
-//        em.getTransaction().commit();
-//
-//        // Delete a Pokemon
-//        em.getTransaction().begin();
-//        em.remove(charmander);
-//        em.getTransaction().commit();
-//
-//        em.close();
-//        emf.close();
-//    }
 }
