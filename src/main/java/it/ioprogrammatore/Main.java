@@ -3,9 +3,12 @@ package it.ioprogrammatore;
 import it.ioprogrammatore.model.PokemonDTO;
 import it.ioprogrammatore.model.TrainerDTO;
 import it.ioprogrammatore.model.TypeDTO;
+import it.ioprogrammatore.service.AbilityDAO;
 import it.ioprogrammatore.service.PokemonDAO;
 import it.ioprogrammatore.service.TrainerDAO;
 import it.ioprogrammatore.service.TypeDAO;
+
+import java.util.List;
 
 public class Main {
 
@@ -42,5 +45,17 @@ public class Main {
         pokemon2.setTrainer(trainerById);
         pokemonDAO.createPokemon(pokemon2);
 
+        // Querying example
+        AbilityDAO abilityDAO = new AbilityDAO();
+        List<Object[]> objects = abilityDAO.countAbilitiesByDescriptionHavingGreatThanOne();
+
+        objects.forEach( res -> {
+            System.out.println(res[0] + ": " + res[1]);
+        });
+
+        List<PokemonDTO> sabrinaPokemon = pokemonDAO.getAllPokemonByTrainerName("Sabrina");
+        sabrinaPokemon.forEach(System.out::println);
+
     }
+
 }

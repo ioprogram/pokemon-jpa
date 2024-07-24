@@ -2,6 +2,9 @@ package it.ioprogrammatore.service;
 
 import it.ioprogrammatore.model.PokemonDTO;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+
+import java.util.List;
 
 
 public class PokemonDAO extends JPAPokemonDAO{
@@ -39,6 +42,14 @@ public class PokemonDAO extends JPAPokemonDAO{
         em.getTransaction().commit();
         em.close();
 
+    }
+
+    public List<PokemonDTO> getAllPokemonByTrainerName(String name) {
+        EntityManager em = emf.createEntityManager();
+        String query = "select p from PokemonDTO p JOIN p.trainer t where t.name = :name";
+        TypedQuery<PokemonDTO> queryTyped = em.createQuery(query, PokemonDTO.class);
+        queryTyped.setParameter("name", name);
+        return queryTyped.getResultList();
     }
 
 
